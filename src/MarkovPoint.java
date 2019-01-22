@@ -33,6 +33,7 @@ public class MarkovPoint {
     /**
      * Adds a possible next word to this point. If the word is already present, it increases the probability that
      * this word will be chosen as the next word
+     *
      * @param word the specified word to be added
      */
     public void addWord(String word){
@@ -45,6 +46,7 @@ public class MarkovPoint {
 
     /**
      * Returns the next word from this point. This is chosen with a roulette wheel selection
+     *
      * @return the next word from this point
      */
     public String nextWord(){
