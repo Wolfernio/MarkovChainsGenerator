@@ -2,8 +2,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Implementation of a single link in a Markov chain. Stores a word, and a list of words it's possible to go to from
- * that point.
+ * Implementation of a single link in a Markov chain. Stores a word, and a list of words (and respective probabilities)
+ * it's possible to go to.
  */
 
 public class MarkovPoint {
@@ -70,6 +70,7 @@ public class MarkovPoint {
             }
         }
 
-        return null;
+        throw new RuntimeException(
+                "A word was not chosen somehow.. If you're seeing this then mike's a bad programmer");
     }
 }
