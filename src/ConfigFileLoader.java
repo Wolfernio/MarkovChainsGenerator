@@ -27,9 +27,12 @@ public class ConfigFileLoader {
             for(String currentWord : currentLine.split(" ")){
                 if(currentWord.matches("(\\$|£)?[\\w']+")){
                     fileContents.add(currentWord);
-                } else if(currentWord.matches("(\\$|£)?[\\w']+.")){
+                } else if(currentWord.matches("(\\$|£)?[\\w']+\\.")){
                     fileContents.add(currentWord.substring(0, currentWord.length() - 1));
                     fileContents.add(".");
+                } else if(currentWord.matches("(\\$|£)?[\\w']+,")){
+                    fileContents.add(currentWord.substring(0, currentWord.length() - 1));
+                    fileContents.add(",");
                 }
             }
         }
