@@ -22,7 +22,7 @@ public class ConfigFileLoader {
         String currentLine;
 
         while(scanner.hasNext()){
-            currentLine = scanner.nextLine();
+            currentLine = scanner.nextLine().toLowerCase();
 
             for(String currentWord : currentLine.split(" ")){
                 if(currentWord.matches("(\\$|£)?[\\w']+")){
