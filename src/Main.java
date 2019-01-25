@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args){
         // TODO: MAKE EVERYTHING LOWERCASE SO MORE MATCHES ALSO WTF AM I DOING WITH FULL STOPS LOL
+        // TODO: fix regex option thing
 
         ConfigFileLoader configFileLoader = new ConfigFileLoader();
         ArrayList<String> words;
@@ -44,7 +45,7 @@ public class Main {
         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
         String nextWord;
 
-        while(true){
+        for(int i = 0; i < 10000; i++){
             System.out.print(currentPoint.getSource() + " ");
             nextWord = currentPoint.nextWord();
             for(MarkovPoint tempPoint : markovPoints){
@@ -52,12 +53,12 @@ public class Main {
                     currentPoint = tempPoint;
                     break;
                 }
-            }
+            }/**
             try {
                 Thread.sleep(100);
             } catch(InterruptedException e) {
                 e.printStackTrace();
-            }
+             }**/
         }
 
         /**
