@@ -11,8 +11,6 @@ public class MarkovPoint {
     private final String source;
     private HashMap<String, Integer> mappings;
 
-    //ignore me
-
     /**
      * Constructs a {@code MarkovPoint} with the specified originator word
      *
