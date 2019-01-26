@@ -41,50 +41,39 @@ public class Main {
             }
         }
 
+        for(MarkovPoint markovPoint : markovPoints){
+            markovPoint.resolveMappings(markovPoints);
+        }
+
         Random random = new Random();
         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
-        String nextWord;
 
-        for(int i = 0; i < 10000; i++){
-            System.out.print(currentPoint.getSource() + " ");
-            nextWord = currentPoint.nextWord();
-            for(MarkovPoint tempPoint : markovPoints){
-                if(tempPoint.getSource().equals(nextWord)){
-                    currentPoint = tempPoint;
-                    break;
-                }
-            }/**
+        while(true){
+            System.out.println(currentPoint.getSource());
+            currentPoint = currentPoint.nextPoint();
+        }
+
+        /**
+         Random random = new Random();
+         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
+         String nextWord;
+
+         for(int i = 0; i < 10000; i++){
+         System.out.print(currentPoint.getSource() + " ");
+         nextWord = currentPoint.nextWord();
+         for(MarkovPoint tempPoint : markovPoints){
+         if(tempPoint.getSource().equals(nextWord)){
+         currentPoint = tempPoint;
+         break;
+         }
+         }**/
+
+        /**
             try {
                 Thread.sleep(100);
             } catch(InterruptedException e) {
                 e.printStackTrace();
-             }**/
-        }
-
-        /**
-         File file = new File("src/sampletext");
-         Scanner scanner;
-         try {
-         scanner = new Scanner(file);
-         } catch(FileNotFoundException e) {
-         System.out.println("File not found.");
-         return;
          }
-
-         List<String> lines = new ArrayList<>();
-
-         String currentLine;
-         while(scanner.hasNext()){
-         currentLine = scanner.nextLine();
-         if(!currentLine.equals("")){
-         lines.add(currentLine);
-         }
-         }
-
-         String[] linesArray = lines.toArray(new String[0]);
-
-         for(String s : linesArray){
-         System.out.println(s);
          }**/
     }
 }
