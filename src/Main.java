@@ -5,7 +5,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args){
-        // TODO: MAKE EVERYTHING LOWERCASE SO MORE MATCHES ALSO WTF AM I DOING WITH FULL STOPS LOL
+        // TODO: Capitalise the start of sentences
 
         ConfigFileLoader configFileLoader = new ConfigFileLoader();
         ArrayList<String> words;
@@ -46,10 +46,21 @@ public class Main {
 
         Random random = new Random();
         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
+        MarkovPoint nextPoint;
+        String outputWord;
+        String nextWord;
 
         while(true){
-            System.out.println(currentPoint.getSource());
-            currentPoint = currentPoint.nextPoint();
+            outputWord = currentPoint.getSource();
+            nextPoint = currentPoint.nextPoint();
+
+            if(nextPoint.getSource().equals(".") || nextPoint.getSource().equals(",")){
+                System.out.print(outputWord);
+            } else {
+                System.out.print(outputWord + " ");
+            }
+
+            currentPoint = nextPoint;
         }
 
         /**
