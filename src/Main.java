@@ -6,13 +6,12 @@ public class Main {
 
     public static void main(String[] args){
         // TODO: MAKE EVERYTHING LOWERCASE SO MORE MATCHES ALSO WTF AM I DOING WITH FULL STOPS LOL
-        // TODO: fix regex option thing
 
         ConfigFileLoader configFileLoader = new ConfigFileLoader();
         ArrayList<String> words;
 
         try {
-            words = configFileLoader.getFileContents("src/sampletext", "");
+            words = configFileLoader.getFileContents("src/sampletext");
         } catch(FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed.");
