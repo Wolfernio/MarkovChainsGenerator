@@ -97,6 +97,8 @@ public class MarkovPoint {
                 }
             }
         }
+
+        this.mappingsAreResolved = true;
     }
 
     /**
