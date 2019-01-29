@@ -47,7 +47,6 @@ public class Main {
         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
         MarkovPoint nextPoint;
         String outputWord;
-        String nextWord;
 
         while(true){
             outputWord = currentPoint.getSource();
