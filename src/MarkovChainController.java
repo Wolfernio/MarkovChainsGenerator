@@ -55,9 +55,17 @@ public class MarkovChainController {
             nextPoint = currentPoint.nextPoint();
 
             if(nextPoint.getSource().equals(".") || nextPoint.getSource().equals(",")){
-                output += currentPoint.getSource();
+                if(currentPoint.getSource().equals("i")){
+                    output += currentPoint.getSource().toUpperCase();
+                } else {
+                    output += currentPoint.getSource();
+                }
             } else {
-                output += currentPoint.getSource() + " ";
+                if(currentPoint.getSource().equals("i")){
+                    output += currentPoint.getSource().toUpperCase() + " ";
+                } else {
+                    output += currentPoint.getSource() + " ";
+                }
             }
 
             currentPoint = nextPoint;
