@@ -7,11 +7,10 @@ public class Main {
     public static void main(String[] args){
         // TODO: Capitalise the start of sentences
 
-        ConfigFileLoader configFileLoader = new ConfigFileLoader();
         ArrayList<String> words;
 
         try {
-            words = configFileLoader.getFileContents("src/sampletext");
+            words = ConfigFileLoader.getFileContents("src/sampletext");
         } catch(FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed.");
