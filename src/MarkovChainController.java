@@ -7,8 +7,7 @@ public class MarkovChainController {
     ArrayList<MarkovPoint> markovPoints;
 
     public MarkovChainController(String filename) throws FileNotFoundException{
-        ArrayList<String> words = ConfigFileLoader.getFileContents(filename);
-        this.markovPoints = this.createMarkovPoints(words);
+        this.markovPoints = this.createMarkovPoints(ConfigFileLoader.getFileContents(filename));
         this.finaliseMarkovPoints();
     }
 
