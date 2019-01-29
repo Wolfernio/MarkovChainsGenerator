@@ -5,14 +5,13 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args){
-        // TODO: MAKE EVERYTHING LOWERCASE SO MORE MATCHES ALSO WTF AM I DOING WITH FULL STOPS LOL
-        // TODO: fix regex option thing
+        // TODO: Capitalise the start of sentences
 
         ConfigFileLoader configFileLoader = new ConfigFileLoader();
         ArrayList<String> words;
 
         try {
-            words = configFileLoader.getFileContents("src/sampletext", "");
+            words = configFileLoader.getFileContents("src/sampletext");
         } catch(FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed.");
@@ -41,50 +40,50 @@ public class Main {
             }
         }
 
+        for(MarkovPoint markovPoint : markovPoints){
+            markovPoint.resolveMappings(markovPoints);
+        }
+
         Random random = new Random();
         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
+        MarkovPoint nextPoint;
+        String outputWord;
         String nextWord;
 
-        for(int i = 0; i < 10000; i++){
-            System.out.print(currentPoint.getSource() + " ");
-            nextWord = currentPoint.nextWord();
-            for(MarkovPoint tempPoint : markovPoints){
-                if(tempPoint.getSource().equals(nextWord)){
-                    currentPoint = tempPoint;
-                    break;
-                }
-            }/**
+        while(true){
+            outputWord = currentPoint.getSource();
+            nextPoint = currentPoint.nextPoint();
+
+            if(nextPoint.getSource().equals(".") || nextPoint.getSource().equals(",")){
+                System.out.print(outputWord);
+            } else {
+                System.out.print(outputWord + " ");
+            }
+
+            currentPoint = nextPoint;
+        }
+
+        /**
+         Random random = new Random();
+         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
+         String nextWord;
+
+         for(int i = 0; i < 10000; i++){
+         System.out.print(currentPoint.getSource() + " ");
+         nextWord = currentPoint.nextWord();
+         for(MarkovPoint tempPoint : markovPoints){
+         if(tempPoint.getSource().equals(nextWord)){
+         currentPoint = tempPoint;
+         break;
+         }
+         }**/
+
+        /**
             try {
                 Thread.sleep(100);
             } catch(InterruptedException e) {
                 e.printStackTrace();
-             }**/
-        }
-
-        /**
-         File file = new File("src/sampletext");
-         Scanner scanner;
-         try {
-         scanner = new Scanner(file);
-         } catch(FileNotFoundException e) {
-         System.out.println("File not found.");
-         return;
          }
-
-         List<String> lines = new ArrayList<>();
-
-         String currentLine;
-         while(scanner.hasNext()){
-         currentLine = scanner.nextLine();
-         if(!currentLine.equals("")){
-         lines.add(currentLine);
-         }
-         }
-
-         String[] linesArray = lines.toArray(new String[0]);
-
-         for(String s : linesArray){
-         System.out.println(s);
          }**/
     }
 }

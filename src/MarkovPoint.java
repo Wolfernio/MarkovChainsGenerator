@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -10,6 +11,8 @@ public class MarkovPoint {
 
     private final String source;
     private HashMap<String, Integer> mappings;
+    private HashMap<MarkovPoint, Integer> resolvedMappings;
+    private boolean mappingsAreResolved;
 
     /**
      * Constructs a {@code MarkovPoint} with the specified originator word
@@ -19,6 +22,8 @@ public class MarkovPoint {
     public MarkovPoint(String source){
         this.source = source;
         this.mappings = new HashMap<>();
+        this.resolvedMappings = new HashMap<>();
+        this.mappingsAreResolved = false;
     }
 
     /**
@@ -49,6 +54,7 @@ public class MarkovPoint {
      *
      * @return the next word from this point
      */
+    @SuppressWarnings("Duplicates")
     public String nextWord(){
         int total = 0;
         String key;
@@ -74,5 +80,62 @@ public class MarkovPoint {
 
         throw new RuntimeException(
                 "A word was not chosen somehow.. If you're seeing this then mike's a bad programmer");
+    }
+
+    /**
+     * Creates an internal mapping list that maps all possible next words to their respective probabilities. Words
+     * are stored as MarkovPoints instead of strings, so this method requires an ArrayList of all instantiated
+     * MarkovPoints as an argument
+     *
+     * @param allMarkovPoints all instantiated MarkovPoints
+     */
+    public void resolveMappings(ArrayList<MarkovPoint> allMarkovPoints){
+        for(MarkovPoint markovPoint : allMarkovPoints){
+            for(HashMap.Entry<String, Integer> entry : this.mappings.entrySet()){
+                if(markovPoint.getSource().equals(entry.getKey())){
+                    this.resolvedMappings.put(markovPoint, entry.getValue());
+                }
+            }
+        }
+
+        this.mappingsAreResolved = true;
+    }
+
+    /**
+     * A computationally faster way of retrieving the next word than {@code nextWord} as this method returns a
+     * MarkovPoint instead of a string. Requires the execution of {@code resolveMappings} before executing.
+     * @return the next MarkovPoint to visit from this point.
+     */
+    @SuppressWarnings("Duplicates")
+    public MarkovPoint nextPoint(){
+        if(!this.mappingsAreResolved){
+            throw new RuntimeException(
+                    "Mappings must be resolved before using nextPoint. Use the resolveMappings method.");
+        }
+
+        int total = 0;
+        MarkovPoint key;
+        Integer value;
+
+        for(Integer currentValue : this.resolvedMappings.values()){
+            total += currentValue;
+        }
+
+        Random random = new Random();
+        int pickedNumber = random.nextInt(total) + 1;
+
+        for(HashMap.Entry<MarkovPoint, Integer> entry : this.resolvedMappings.entrySet()){
+            key = entry.getKey();
+            value = entry.getValue();
+
+            if(pickedNumber <= value){
+                return key;
+            } else {
+                pickedNumber -= value;
+            }
+        }
+
+        throw new RuntimeException("A point was not chosen somehow.. If you're seeing this then mike's a bad " +
+                "programmer");
     }
 }
