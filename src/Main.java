@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 public class Main {
 
@@ -27,7 +28,14 @@ public class Main {
         activateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                TextLoaderFormatter.splitText(inputArea.getText());
+                MarkovChainController controller;
+                try {
+                    controller = new MarkovChainController(inputArea.getText(), false);
+                } catch(FileNotFoundException e1) {
+                    return; // should never happen lol
+                }
+
+                outputArea.setText(controller.generateText(1000));
             }
         });
 
