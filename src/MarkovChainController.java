@@ -2,15 +2,30 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Handles everything to do with generating text so you don't have to! This class sets itself up on instantiation and
+ * is ready to {@code generateText(int length)} out of the box.
+ */
 public class MarkovChainController {
 
     ArrayList<MarkovPoint> markovPoints;
 
+    /**
+     * Creates a MarkovChainController and sets it up ready to go. Don't be scared if this takes a short while!
+     *
+     * @param filename the path to source file containing the text to mimic
+     * @throws FileNotFoundException if the source file is not found
+     */
     public MarkovChainController(String filename) throws FileNotFoundException{
         this.markovPoints = this.createMarkovPoints(ConfigFileLoader.getFileContents(filename));
         this.finaliseMarkovPoints();
     }
 
+    /**
+     * Creates all MarkovPoints and maps them to strings.
+     * @param words all words in order in the source file
+     * @return all markov points
+     */
     private ArrayList<MarkovPoint> createMarkovPoints(ArrayList<String> words){
         ArrayList<MarkovPoint> markovPoints = new ArrayList<>();
         boolean found;
@@ -37,12 +52,20 @@ public class MarkovChainController {
         return markovPoints;
     }
 
+    /**
+     * Corrects the markov points to be mapped to other markov points, rather than just words.
+     */
     private void finaliseMarkovPoints(){
         for(MarkovPoint currentMarkovPoint : this.markovPoints){
             currentMarkovPoint.resolveMappings(this.markovPoints);
         }
     }
 
+    /**
+     * Generates text based on the source file provided in the
+     * @param length
+     * @return
+     */
     public String generateText(int length){
         String output = "";
         Random random = new Random();

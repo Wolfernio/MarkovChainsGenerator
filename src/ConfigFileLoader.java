@@ -3,6 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Contains methods which take a source file and split it into "words" based on how words are defined at the time.
+ */
 public final class ConfigFileLoader {
 
     /**
