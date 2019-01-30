@@ -6,12 +6,12 @@ import java.util.Scanner;
 /**
  * Contains methods which take a source file and split it into "words" based on how words are defined at the time.
  */
-public final class ConfigFileLoader {
+public final class TextLoaderFormatter {
 
     /**
      * Don't let anyone instantiate this class.
      */
-    private ConfigFileLoader(){
+    private TextLoaderFormatter(){
     }
 
     /**
@@ -22,7 +22,7 @@ public final class ConfigFileLoader {
      * the point is entered as its own word.
      */
     public static ArrayList<String> getFileContents(String filename) throws FileNotFoundException{
-        return ConfigFileLoader.getFileContents(filename, "(\\$|£)?[\\w']+");
+        return TextLoaderFormatter.getFileContents(filename, "(\\$|£)?[\\w']+");
     }
 
     /**
@@ -41,24 +41,43 @@ public final class ConfigFileLoader {
         Scanner scanner = new Scanner(new File(filename));
         ArrayList<String> fileContents = new ArrayList<>();
 
-        String currentLine;
+        String fileAsString = "";
 
         while(scanner.hasNext()){
-            currentLine = scanner.nextLine().toLowerCase();
+            fileAsString += scanner.nextLine() + " \n";
+        }
 
-            for(String currentWord : currentLine.split(" ")){
+        fileContents = TextLoaderFormatter.splitString(fileAsString, regexString);
+
+        return fileContents;
+    }
+
+    private static ArrayList<String> splitString(String textToSplit, String regexString){
+        ArrayList<String> formattedText = new ArrayList<>();
+
+        String[] lines = textToSplit.toLowerCase().split("\\n");
+        for(String line : lines){
+            for(String currentWord : line.split(" ")){
                 if(currentWord.matches(regexString)){
-                    fileContents.add(currentWord);
+                    formattedText.add(currentWord);
                 } else if(currentWord.matches(regexString + "\\.")){
-                    fileContents.add(currentWord.substring(0, currentWord.length() - 1));
-                    fileContents.add(".");
+                    formattedText.add(currentWord.substring(0, currentWord.length() - 1));
+                    formattedText.add(".");
                 } else if(currentWord.matches(regexString + ",")){
-                    fileContents.add(currentWord.substring(0, currentWord.length() - 1));
-                    fileContents.add(",");
+                    formattedText.add(currentWord.substring(0, currentWord.length() - 1));
+                    formattedText.add(",");
                 }
             }
         }
 
-        return fileContents;
+        return formattedText;
+    }
+
+    public static ArrayList<String> splitText(String textToSplit){
+        return TextLoaderFormatter.splitText(textToSplit, "(\\$|£)?[\\w']+");
+    }
+
+    public static ArrayList<String> splitText(String textToSplit, String regexString){
+        return splitString(textToSplit, regexString);
     }
 }
