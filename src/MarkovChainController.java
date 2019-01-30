@@ -17,7 +17,7 @@ public class MarkovChainController {
      * @throws FileNotFoundException if the source file is not found
      */
     public MarkovChainController(String filename) throws FileNotFoundException{
-        this.markovPoints = this.createMarkovPoints(ConfigFileLoader.getFileContents(filename));
+        this.markovPoints = this.createMarkovPoints(TextLoaderFormatter.getFileContents(filename));
         this.finaliseMarkovPoints();
     }
 
