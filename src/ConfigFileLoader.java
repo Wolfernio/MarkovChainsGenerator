@@ -3,7 +3,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ConfigFileLoader {
+/**
+ * Contains methods which take a source file and split it into "words" based on how words are defined at the time.
+ */
+public final class ConfigFileLoader {
+
+    /**
+     * Don't let anyone instantiate this class.
+     */
+    private ConfigFileLoader(){
+    }
 
     /**
      * Takes a plaintext file and returns an ArrayList containing all the words and full stops in the file. This
@@ -12,8 +21,8 @@ public class ConfigFileLoader {
      * has a comma or a full stop immediately following it, then the word is stripped of the punctuation point and
      * the point is entered as its own word.
      */
-    public ArrayList<String> getFileContents(String filename) throws FileNotFoundException{
-        return this.getFileContents(filename, "(\\$|£)?[\\w']+");
+    public static ArrayList<String> getFileContents(String filename) throws FileNotFoundException{
+        return ConfigFileLoader.getFileContents(filename, "(\\$|£)?[\\w']+");
     }
 
     /**
@@ -28,7 +37,7 @@ public class ConfigFileLoader {
      * @return an {@code ArrayList<String>} containing all the words in the text file, as well as full stops.
      * @throws FileNotFoundException if the file is not found
      */
-    public ArrayList<String> getFileContents(String filename, String regexString) throws FileNotFoundException{
+    public static ArrayList<String> getFileContents(String filename, String regexString) throws FileNotFoundException{
         Scanner scanner = new Scanner(new File(filename));
         ArrayList<String> fileContents = new ArrayList<>();
 
