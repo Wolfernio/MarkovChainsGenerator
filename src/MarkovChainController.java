@@ -13,12 +13,18 @@ public class MarkovChainController {
     /**
      * Creates a MarkovChainController and sets it up ready to go. Don't be scared if this takes a short while!
      *
-     * @param filename the path to source file containing the text to mimic
+     * @param data the path to source file containing the text to mimic, or the source to mimic
+     * @param isUsingFile whether or not to use a source file or just plain text as a string
      * @throws FileNotFoundException if the source file is not found
      */
-    public MarkovChainController(String filename) throws FileNotFoundException{
-        this.markovPoints = this.createMarkovPoints(TextLoaderFormatter.getFileContents(filename));
-        this.finaliseMarkovPoints();
+    public MarkovChainController(String data, boolean isUsingFile) throws FileNotFoundException{
+        if(isUsingFile){
+            this.markovPoints = this.createMarkovPoints(TextLoaderFormatter.getFileContents(data));
+            this.finaliseMarkovPoints();
+        } else {
+            this.markovPoints = this.createMarkovPoints(TextLoaderFormatter.splitText(data));
+            this.finaliseMarkovPoints();
+        }
     }
 
     /**
