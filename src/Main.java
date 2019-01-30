@@ -1,89 +1,46 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args){
-        // TODO: Capitalise the start of sentences
 
-        ConfigFileLoader configFileLoader = new ConfigFileLoader();
-        ArrayList<String> words;
+        JFrame jFrame = new JFrame("ChatterBot");
+        jFrame.setLayout(new GridLayout(3, 1));
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setSize(600, 500);
+        jFrame.setResizable(false);
 
-        try {
-            words = configFileLoader.getFileContents("src/sampletext");
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed.");
-            return;
-        }
+        JTextArea inputArea = new JTextArea();
 
-        ArrayList<MarkovPoint> markovPoints = new ArrayList<>();
-        boolean found = false;
-        int matches = 0;
+        JButton activateButton = new JButton("Go!");
 
-        for(int index = 0; index < words.size() - 1; index++){
-            found = false;
+        JTextArea outputArea = new JTextArea();
+        outputArea.setEditable(false);
 
-            for(int k = 0; k < markovPoints.size(); k++){
-                if(markovPoints.get(k).getSource().equals(words.get(index))){
-                    markovPoints.get(k).addWord(words.get(index + 1));
-                    found = true;
-                    matches++;
-                    break;
+        jFrame.add(inputArea);
+        jFrame.add(activateButton);
+        jFrame.add(outputArea);
+
+        activateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                MarkovChainController controller;
+                try {
+                    controller = new MarkovChainController(inputArea.getText(), false);
+                } catch(FileNotFoundException e1) {
+                    return; // should never happen lol
                 }
+
+                outputArea.setText(controller.generateText(1000));
             }
+        });
 
-            if(!found || markovPoints.size() == 0){
-                markovPoints.add(new MarkovPoint(words.get(index)));
-                markovPoints.get(index - matches).addWord(words.get(index + 1));
-            }
-        }
+        jFrame.setVisible(true);
 
-        for(MarkovPoint markovPoint : markovPoints){
-            markovPoint.resolveMappings(markovPoints);
-        }
 
-        Random random = new Random();
-        MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
-        MarkovPoint nextPoint;
-        String outputWord;
-        String nextWord;
-
-        while(true){
-            outputWord = currentPoint.getSource();
-            nextPoint = currentPoint.nextPoint();
-
-            if(nextPoint.getSource().equals(".") || nextPoint.getSource().equals(",")){
-                System.out.print(outputWord);
-            } else {
-                System.out.print(outputWord + " ");
-            }
-
-            currentPoint = nextPoint;
-        }
-
-        /**
-         Random random = new Random();
-         MarkovPoint currentPoint = markovPoints.get(random.nextInt(markovPoints.size()));
-         String nextWord;
-
-         for(int i = 0; i < 10000; i++){
-         System.out.print(currentPoint.getSource() + " ");
-         nextWord = currentPoint.nextWord();
-         for(MarkovPoint tempPoint : markovPoints){
-         if(tempPoint.getSource().equals(nextWord)){
-         currentPoint = tempPoint;
-         break;
-         }
-         }**/
-
-        /**
-            try {
-                Thread.sleep(100);
-            } catch(InterruptedException e) {
-                e.printStackTrace();
-         }
-         }**/
     }
 }
