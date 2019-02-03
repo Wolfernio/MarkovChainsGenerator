@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="MarkovChainsGenerator:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/MarkovChainsGenerator_jar</output-path>
-    <root id="archive" name="MarkovChainsGenerator.jar">
-      <element id="module-output" name="MarkovChainsGenerator" />
-    </root>
-  </artifact>
-</component>
