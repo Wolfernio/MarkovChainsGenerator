@@ -1,8 +1,8 @@
 # Compiled class file
 *.class
 
-# intellij wank
-.idea
+# intellij stuff
+.idea/
 *.iml
 
 # Log file
