@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Contains methods which take a source file and split it into "words" based on how words are defined at the time.
  */
-public final class TextLoaderFormatter {
+final class TextLoaderFormatter {
 
     /**
      * Don't let anyone instantiate this class.
@@ -21,7 +21,7 @@ public final class TextLoaderFormatter {
      * has a comma or a full stop immediately following it, then the word is stripped of the punctuation point and
      * the point is entered as its own word.
      */
-    public static ArrayList<String> getFileContents(String filename) throws FileNotFoundException{
+    static ArrayList<String> getFileContents(String filename) throws FileNotFoundException{
         return TextLoaderFormatter.getFileContents(filename, "(\\$|£)?[\\w']+");
     }
 
@@ -37,7 +37,7 @@ public final class TextLoaderFormatter {
      * @return an {@code ArrayList<String>} containing all the words in the text file, as well as full stops.
      * @throws FileNotFoundException if the file is not found
      */
-    public static ArrayList<String> getFileContents(String filename, String regexString) throws FileNotFoundException{
+    static ArrayList<String> getFileContents(String filename, String regexString) throws FileNotFoundException{
         Scanner scanner = new Scanner(new File(filename));
         ArrayList<String> fileContents = new ArrayList<>();
 
@@ -52,6 +52,13 @@ public final class TextLoaderFormatter {
         return fileContents;
     }
 
+    /**
+     * Splits a {@code \n} delimited string into words as defined by the {@code regexString}
+     *
+     * @param textToSplit the string to split
+     * @param regexString definition of a word as a regex string
+     * @return the words in the given text
+     */
     private static ArrayList<String> splitString(String textToSplit, String regexString){
         ArrayList<String> formattedText = new ArrayList<>();
 
@@ -73,11 +80,25 @@ public final class TextLoaderFormatter {
         return formattedText;
     }
 
-    public static ArrayList<String> splitText(String textToSplit){
+    /**
+     * Splits a {@code \n} delimited string into words as defined by the regex string {@code (\$|£)?[\w']+}
+     *
+     * @param textToSplit the string to split
+     * @return the words in the given text
+     */
+    static ArrayList<String> splitText(String textToSplit){
         return TextLoaderFormatter.splitText(textToSplit, "(\\$|£)?[\\w']+");
     }
 
-    public static ArrayList<String> splitText(String textToSplit, String regexString){
+
+    /**
+     * Splits a {@code \n} delimited string into words as defined by the {@code regexString}
+     *
+     * @param textToSplit the string to split
+     * @param regexString definition of a word as a regex string
+     * @return the words in the given text
+     */
+    static ArrayList<String> splitText(String textToSplit, String regexString){
         return splitString(textToSplit, regexString);
     }
 }

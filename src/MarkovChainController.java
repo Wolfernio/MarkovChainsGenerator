@@ -6,7 +6,7 @@ import java.util.Random;
  * Handles everything to do with generating text so you don't have to! This class sets itself up on instantiation and
  * is ready to {@code generateText(int length)} out of the box.
  */
-public class MarkovChainController {
+class MarkovChainController {
 
     ArrayList<MarkovPoint> markovPoints;
 
@@ -17,7 +17,7 @@ public class MarkovChainController {
      * @param isUsingFile whether or not to use a source file or just plain text as a string
      * @throws FileNotFoundException if the source file is not found
      */
-    public MarkovChainController(String data, boolean isUsingFile) throws FileNotFoundException{
+    MarkovChainController(String data, boolean isUsingFile) throws FileNotFoundException{
         if(isUsingFile){
             this.markovPoints = this.createMarkovPoints(TextLoaderFormatter.getFileContents(data));
             this.finaliseMarkovPoints();

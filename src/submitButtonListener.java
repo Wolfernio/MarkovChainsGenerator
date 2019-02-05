@@ -1,14 +1,21 @@
-import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
-public class submitButtonListener implements ActionListener {
+/**
+ * An implementation of {@link ActionListener} that is used to generate text for ChatterBot.
+ */
 
-    private JTextArea inputTextArea;
-    private JTextArea outputTextArea;
+class submitButtonListener implements ActionListener {
 
-    public submitButtonListener(JTextArea inputTextArea, JTextArea outputTextArea){
+    private JTextComponent inputTextArea;
+    private JTextComponent outputTextArea;
+
+    /**
+     * Creates a {@link submitButtonListener} with the given input and
+     */
+    submitButtonListener(JTextComponent inputTextArea, JTextComponent outputTextArea){
         this.inputTextArea = inputTextArea;
         this.outputTextArea = outputTextArea;
     }

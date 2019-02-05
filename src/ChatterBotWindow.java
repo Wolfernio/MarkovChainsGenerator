@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class ChatterBotWindow extends JFrame {
+/**
+ * The GUI parts of ChatterBot. Needs a {@code setVisible(true)} once instantiated.
+ */
+
+class ChatterBotWindow extends JFrame {
 
     private JPanel mainPanel;
     private JTextArea inputArea;
@@ -14,7 +18,10 @@ public class ChatterBotWindow extends JFrame {
     private JPanel subButtonPanel;
     private JScrollPane outputScrollPane;
 
-    public ChatterBotWindow(){
+    /**
+     * Creates a ChatterBot GUI instance
+     */
+    ChatterBotWindow(){
 
         this.setTitle("ChatterBot");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
