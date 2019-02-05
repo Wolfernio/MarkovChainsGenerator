@@ -35,6 +35,12 @@ public class ChatterBotWindow extends JFrame {
         this.outputArea = new JTextArea();
         this.outputArea.setEditable(false);
 
+        this.inputArea.setLineWrap(true);
+        this.outputArea.setLineWrap(true);
+
+        this.inputArea.setWrapStyleWord(true);
+        this.outputArea.setWrapStyleWord(true);
+
         this.inputScrollPane = new JScrollPane(this.inputArea);
         this.outputScrollPane = new JScrollPane(this.outputArea);
 
