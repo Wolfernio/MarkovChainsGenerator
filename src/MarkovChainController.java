@@ -8,7 +8,7 @@ import java.util.Random;
  */
 class MarkovChainController {
 
-    ArrayList<MarkovPoint> markovPoints;
+    private ArrayList<MarkovPoint> markovPoints;
 
     /**
      * Creates a MarkovChainController and sets it up ready to go. Don't be scared if this takes a short while!
@@ -28,49 +28,9 @@ class MarkovChainController {
     }
 
     /**
-     * Creates all MarkovPoints and maps them to strings.
-     * @param words all words in order in the source file
-     * @return all markov points
-     */
-    private ArrayList<MarkovPoint> createMarkovPoints(ArrayList<String> words){
-        ArrayList<MarkovPoint> markovPoints = new ArrayList<>();
-        boolean found;
-        int offset = 0;
-
-        for(int index = 0; index < words.size() - 1; index++){
-            found = false;
-
-            for(int k = 0; k < markovPoints.size(); k++){
-                if(markovPoints.get(k).getSource().equals(words.get(index))){
-                    markovPoints.get(k).addWord(words.get(index + 1));
-                    found = true;
-                    offset++;
-                    break;
-                }
-            }
-
-            if(!found || markovPoints.size() == 0){
-                markovPoints.add(new MarkovPoint(words.get(index)));
-                markovPoints.get(index - offset).addWord(words.get(index + 1));
-            }
-        }
-
-        return markovPoints;
-    }
-
-    /**
-     * Corrects the markov points to be mapped to other markov points, rather than just words.
-     */
-    private void finaliseMarkovPoints(){
-        for(MarkovPoint currentMarkovPoint : this.markovPoints){
-            currentMarkovPoint.resolveMappings(this.markovPoints);
-        }
-    }
-
-    /**
-     * Generates text based on the source file provided in the
-     * @param length
-     * @return
+     * Generates text based on the {@link MarkovPoint}s in the chain.
+     * @param length the number of words to generate
+     * @return the generated text
      */
     public String generateText(int length){
         String output = "";
@@ -116,4 +76,48 @@ class MarkovChainController {
 
         return correctedOutput;
     }
+
+    /**
+     * Corrects the markov points to be mapped to other markov points, rather than just words.
+     */
+    private void finaliseMarkovPoints(){
+        for(MarkovPoint currentMarkovPoint : this.markovPoints){
+            currentMarkovPoint.resolveMappings(this.markovPoints);
+        }
+    }
+
+    // Private methods
+
+    /**
+     * Creates all MarkovPoints and maps them to strings.
+     *
+     * @param words all words in order in the source file
+     * @return all markov points
+     */
+    private ArrayList<MarkovPoint> createMarkovPoints(ArrayList<String> words){
+        ArrayList<MarkovPoint> markovPoints = new ArrayList<>();
+        boolean found;
+        int offset = 0;
+
+        for(int index = 0; index < words.size() - 1; index++){
+            found = false;
+
+            for(MarkovPoint markovPoint : markovPoints){
+                if(markovPoint.getSource().equals(words.get(index))){
+                    markovPoint.addWord(words.get(index + 1));
+                    found = true;
+                    offset++;
+                    break;
+                }
+            }
+
+            if(!found || markovPoints.size() == 0){
+                markovPoints.add(new MarkovPoint(words.get(index)));
+                markovPoints.get(index - offset).addWord(words.get(index + 1));
+            }
+        }
+
+        return markovPoints;
+    }
+    // End private methods
 }

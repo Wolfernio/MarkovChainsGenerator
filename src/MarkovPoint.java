@@ -10,8 +10,8 @@ import java.util.Random;
 public class MarkovPoint {
 
     private final String source;
-    private HashMap<String, Integer> mappings;
-    private HashMap<MarkovPoint, Integer> resolvedMappings;
+    private final HashMap<String, Integer> mappings;
+    private final HashMap<MarkovPoint, Integer> resolvedMappings;
     private boolean mappingsAreResolved;
 
     /**

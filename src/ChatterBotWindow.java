@@ -7,16 +7,16 @@ import java.awt.*;
 
 class ChatterBotWindow extends JFrame {
 
-    private JPanel mainPanel;
-    private JTextArea inputArea;
-    private JButton activateButton;
-    private JTextArea outputArea;
-    private JPanel inputPanel;
-    private JPanel outputPanel;
-    private JScrollPane inputScrollPane;
-    private JPanel buttonPanel;
-    private JPanel subButtonPanel;
-    private JScrollPane outputScrollPane;
+    private final JPanel mainPanel;
+    private final JTextArea inputArea;
+    private final JButton activateButton;
+    private final JTextArea outputArea;
+    private final JPanel inputPanel;
+    private final JPanel outputPanel;
+    private final JScrollPane inputScrollPane;
+    private final JPanel buttonPanel;
+    private final JPanel subButtonPanel;
+    private final JScrollPane outputScrollPane;
 
     /**
      * Creates a ChatterBot GUI instance

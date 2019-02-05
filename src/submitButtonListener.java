@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 
 class submitButtonListener implements ActionListener {
 
-    private JTextComponent inputTextArea;
-    private JTextComponent outputTextArea;
+    private final JTextComponent inputTextArea;
+    private final JTextComponent outputTextArea;
 
     /**
      * Creates a {@link submitButtonListener} with the given input and

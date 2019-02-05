@@ -37,9 +37,9 @@ final class TextLoaderFormatter {
      * @return an {@code ArrayList<String>} containing all the words in the text file, as well as full stops.
      * @throws FileNotFoundException if the file is not found
      */
-    static ArrayList<String> getFileContents(String filename, String regexString) throws FileNotFoundException{
+    private static ArrayList<String> getFileContents(String filename, String regexString) throws FileNotFoundException{
         Scanner scanner = new Scanner(new File(filename));
-        ArrayList<String> fileContents = new ArrayList<>();
+        ArrayList<String> fileContents;
 
         String fileAsString = "";
 
@@ -98,7 +98,7 @@ final class TextLoaderFormatter {
      * @param regexString definition of a word as a regex string
      * @return the words in the given text
      */
-    static ArrayList<String> splitText(String textToSplit, String regexString){
+    private static ArrayList<String> splitText(String textToSplit, String regexString){
         return splitString(textToSplit, regexString);
     }
 }
