@@ -1,3 +1,5 @@
+package michaelryan.ChatterBot;
+
 import javax.swing.*;
 import java.awt.*;
 

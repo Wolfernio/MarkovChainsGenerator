@@ -1,3 +1,5 @@
+package michaelryan.ChatterBot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -7,7 +9,7 @@ import java.util.Random;
  * it's possible to go to.
  */
 
-public class MarkovPoint {
+class MarkovPoint {
 
     private final String source;
     private final HashMap<String, Integer> mappings;
@@ -78,8 +80,7 @@ public class MarkovPoint {
             }
         }
 
-        throw new RuntimeException(
-                "A word was not chosen somehow.. If you're seeing this then mike's a bad programmer");
+        throw new RuntimeException("A word was not chosen somehow.. If you're seeing this then mike's a bad programmer");
     }
 
     /**

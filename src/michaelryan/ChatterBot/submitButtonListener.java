@@ -1,3 +1,5 @@
+package michaelryan.ChatterBot;
+
 import javax.swing.text.JTextComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
