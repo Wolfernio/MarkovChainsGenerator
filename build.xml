@@ -92,7 +92,6 @@
     <property name="project.jdk.home" value="${jdk.home.1.8}"/>
     <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
     <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
-    <!-- Register Custom Compiler Taskdefs -->
 
     <!-- Modules -->
 
@@ -150,6 +149,35 @@
         </dirset>
     </path>
 
+
+    <target name="compile.module.markovchainsgenerator"
+            depends="compile.module.markovchainsgenerator.production,compile.module.markovchainsgenerator.tests"
+            description="Compile module MarkovChainsGenerator"/>
+
+    <target name="compile.module.markovchainsgenerator.production"
+            description="Compile module MarkovChainsGenerator; production classes">
+        <mkdir dir="${markovchainsgenerator.output.dir}"/>
+        <javac destdir="${markovchainsgenerator.output.dir}" debug="${compiler.debug}"
+               nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true"
+               executable="${module.jdk.bin.markovchainsgenerator}/javac">
+            <compilerarg line="${compiler.args.markovchainsgenerator}"/>
+            <bootclasspath refid="markovchainsgenerator.module.bootclasspath"/>
+            <classpath refid="markovchainsgenerator.module.production.classpath"/>
+            <src refid="markovchainsgenerator.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.markovchainsgenerator"/>
+        </javac>
+
+        <copy todir="${markovchainsgenerator.output.dir}">
+            <fileset dir="${module.markovchainsgenerator.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.markovchainsgenerator.tests" depends="compile.module.markovchainsgenerator.production"
+            description="compile module MarkovChainsGenerator; test classes" unless="skip.tests"/>
+
     <target name="clean.module.markovchainsgenerator" description="cleanup module">
         <delete dir="${markovchainsgenerator.output.dir}"/>
         <delete dir="${markovchainsgenerator.testoutput.dir}"/>
@@ -161,6 +189,9 @@
 
     <target name="clean" depends="clean.module.markovchainsgenerator" description="cleanup all"/>
 
+    <target name="build.modules" depends="init, clean, compile.module.markovchainsgenerator"
+            description="build all modules"/>
+
     <target name="init.artifacts">
         <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
         <property name="artifact.output.chatterbot:jar" value="${basedir}/out/artifacts/ChatterBot_jar"/>
@@ -168,4 +199,25 @@
         <property name="temp.jar.path.ChatterBot.jar" value="${artifacts.temp.dir}/ChatterBot.jar"/>
     </target>
 
+    <target name="artifact.chatterbot:jar" depends="init.artifacts, compile.module.markovchainsgenerator"
+            description="Build &#39;ChatterBot:jar&#39; artifact">
+        <property name="artifact.temp.output.chatterbot:jar" value="${artifacts.temp.dir}/ChatterBot_jar"/>
+        <mkdir dir="${artifact.temp.output.chatterbot:jar}"/>
+        <jar destfile="${temp.jar.path.ChatterBot.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+            <zipfileset dir="${markovchainsgenerator.output.dir}"/>
+        </jar>
+        <copy file="${temp.jar.path.ChatterBot.jar}" tofile="${artifact.temp.output.chatterbot:jar}/ChatterBot.jar"/>
+    </target>
+
+    <target name="build.all.artifacts" depends="artifact.chatterbot:jar" description="Build all artifacts">
+        <mkdir dir="${artifact.output.chatterbot:jar}"/>
+        <copy todir="${artifact.output.chatterbot:jar}">
+            <fileset dir="${artifact.temp.output.chatterbot:jar}"/>
+        </copy>
+
+        <!-- Delete temporary files -->
+        <delete dir="${artifacts.temp.dir}"/>
+    </target>
+
+    <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>
