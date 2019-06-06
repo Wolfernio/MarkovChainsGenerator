@@ -28,5 +28,8 @@ A simple roulette selection on `the` gives me a two thirds chance that the next 
 
 Commas and full stops are treated as words too.
 
+## What if I don't trust you?
+After looking through the code, feel free to compile with `mvn install`.
+
 ## Why would I use it?
 I don't know. It's a bit of a laugh I guess.
