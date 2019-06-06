@@ -24,7 +24,7 @@ the -> [dog -> 2, cat -> 1]
 dog -> [the -> 2]
 cat -> []
 ```
-A simple roulette selection on `the` gives me a two thirds chance that the next word produces is `dog`, and a one third chance it'll be `cat`. A totally random word is chosen to start, then this selection is repeated over and over again.
+A simple roulette selection on `the` gives me a two thirds chance that the next word produced is `dog`, and a one third chance it'll be `cat`. A totally random word is chosen to start, then this selection is repeated over and over again.
 
 Commas and full stops are treated as words too.
 
