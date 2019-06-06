@@ -20,8 +20,8 @@ cat -> []
 I also count the frequencies of each word appearing after a given word, so the mapping actually looks like this:
 
 ```
-the -> [dog : 2, cat : 1]
-dog -> [the : 2]
+the -> [dog -> 2, cat -> 1]
+dog -> [the -> 2]
 cat -> []
 ```
 A simple roulette selection on `the` gives me a two thirds chance that the next word produces is `dog`, and a one third chance it'll be `cat`. A totally random word is chosen to start, then this selection is repeated over and over again.
