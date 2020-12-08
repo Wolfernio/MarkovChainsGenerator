@@ -1,5 +1,5 @@
 # ChatterBot
-Generating text using Markov chains (I'm not really smart enough for markov chains but I'm doing something similar)
+Generating text using frequency analysis.
 
 ## What is it?
 This program generates text based on the text that you give it. If you were to give it a transcript of a speech by Donald Trump, it would spit something back at you that *sounded like* Mr Trump, but would read like nonsense. In fact, anything produced by this program is nonsense.
