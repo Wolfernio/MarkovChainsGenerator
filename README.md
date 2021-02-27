@@ -29,7 +29,7 @@ A simple roulette selection on `the` gives me a two thirds chance that the next 
 Commas and full stops are treated as words too.
 
 ## What if I don't trust you?
-After looking through the code, feel free to compile with `mvn install`. This will create an executable jar in the `target` directory. Otherwise, check the [releases](https://github.com/michael-ryan/ChatterBot/releases) page and download the latest jar.
+After looking through the code, feel free to compile with `mvn package`. This will create an executable jar in the `target` directory. Otherwise, check the [releases](https://github.com/michael-ryan/ChatterBot/releases) page and download the latest jar.
 
 ## Why would I use it?
 I don't know. It's a bit of a laugh I guess.
